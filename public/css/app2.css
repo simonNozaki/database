@@ -1,0 +1,19 @@
+body{
+  background-color: #262626;
+}
+
+.btn-link a{
+  padding: 15px;
+  display: inline-block;
+  text-decoration: none;/*ボタン色*/
+  color: #4e454a;
+  border-radius: 5px;/*角の丸み*/
+  text-align: center;
+  display: block;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+.btn-link a:hover{
+  color: #e8ece9;
+}
