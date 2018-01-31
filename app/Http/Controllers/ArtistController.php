@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Artist;
+use App\Models\Artist;
 use Illuminate\Support\Facades\DB;
 use Input;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArtistRequest;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Repositories\ArtistRepositoryInterface;
+use App\Repositories\ArtistRepository;
 
 class ArtistController extends Controller{
 
+  public function __construct(ArtistRepositoryInterface $artistRepository){
+    $this->artistRepository = $artistRepository;
+  }
+
   public function index(){
-    $records = Artist::all();
+    $records = $this->artistRepository->getAll();
     return view('Artist.index', compact('records'));
   }
 
@@ -40,7 +46,15 @@ class ArtistController extends Controller{
         'forFansOf1' => 'required'
     ]);
 
-    $data = ['name' => $name, 'category' => $category, 'area' => $area, 'for_fans_of_1' => $forFansOf1, 'for_fans_of_2' => $forFansOf2, 'for_fans_of_3' => $forFansOf3, 'user_id' => $userId];
+    $data = [
+      'name' => $name,
+      'category' => $category,
+      'area' => $area,
+      'for_fans_of_1' => $forFansOf1,
+      'for_fans_of_2' => $forFansOf2,
+      'for_fans_of_3' => $forFansOf3,
+      'user_id' => $userId
+    ];
 
     DB::table('artist_master')->insertGetId($data);
     $request->session()->flash('flash', 'Artist Registered');
