@@ -9,11 +9,20 @@ use Input;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArtistRequest;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Service\ArtistMasterService;
+use App\Service\ArtistMasterServiceInterface;
 
 class ArtistController extends Controller{
 
+  public function __construct(ArtistMasterServiceInterface $artistMasterService)
+    {
+        $this->artistMasterService = $artistMasterService;
+    }
+
   public function index(){
-    $records = Artist::all();
+
+    $records = $this->artistMasterService->getAll();
+    //$records = Artist::all();
     return view('Artist.index', compact('records'));
   }
 
