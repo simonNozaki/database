@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><h3>{{ $record->name }}</h3></div>
+                <div class="panel-heading"><h3>{{ $artistName->name }}</h3></div>
 
                 <div class="panel-body">
                   @if(isset($artistTitles))
@@ -50,8 +50,8 @@
                             </div>
                         </div>
 
-                        <input type = "hidden" name = "artistId" value = "{{ $record->artist_id }}">
-                        <input type = "hidden" name = "name" value = "{{ $record->name }}">
+                        <input type = "hidden" name = "artistId" value = "{{ $artistName->artist_id }}">
+                        <input type = "hidden" name = "name" value = "{{ $artistName->name }}">
                         <input type = "hidden" name = "_token" value = "{{ csrf_token() }}">
 
                         <div class="form-group">

@@ -19,6 +19,7 @@ class ArtistController extends Controller{
   }
 
   public function index(){
+    //全件取得する
     $records = $this->artistRepository->getAll();
     return view('Artist.index', compact('records'));
   }
@@ -28,60 +29,28 @@ class ArtistController extends Controller{
   }
 
   public function store(Request $request){
-    //バンド情報の登録
-    $name = $request->input('name');
-    $category = $request->input('category');
-    $area = $request->input('area');
-    $forFansOf1 = $request->input('forFansOf1');
-    $forFansOf2 = $request->input('forFansOf2');
-    $forFansOf3 = $request->input('forFansOf3');
-    $userId = $request->input('userId');
-
-    //バリデーション
-    $this->validate($request, [
-        'artist_id' => 'max:11',
-        'name' => 'required|unique:artist_master|max:255',
-        'category' => 'required',
-        'area' => 'required',
-        'forFansOf1' => 'required'
-    ]);
-
-    $data = [
-      'name' => $name,
-      'category' => $category,
-      'area' => $area,
-      'for_fans_of_1' => $forFansOf1,
-      'for_fans_of_2' => $forFansOf2,
-      'for_fans_of_3' => $forFansOf3,
-      'user_id' => $userId
-    ];
-
-    DB::table('artist_master')->insertGetId($data);
+    //バンドデータの挿入
+    $this->artistRepository->inseertArtistData($request);
+    //フラッシュメッセージの表示
     $request->session()->flash('flash', 'Artist Registered');
     return redirect()->to('/database/index');
   }
 
   public function search(Request $request){
-    $name = $request->input('name');
-    $records = DB::table('artist_master')
-          ->where('name', 'like', "%{$name}%")
-          ->get();
-    if(empty($records)){
-      $records = "Nothing is searched";
-    }
+    //名前でレコードを取得する
+    $artistRecord = $this->artistRepository->getArtistByName($request);
+    $name = $artistRecord['name'];
+    $records = $artistRecord['records'];
     return view('Artist.search', compact('records', 'name'));
   }
 
   public function show($name){
-    $record = DB::table('artist_base.artist_master')
-          ->where('name', 'like', "%{$name}%")
-          ->first();
-    $artistTitles = DB::table('artist_base.artist_master')
-          ->select('*')
-          ->leftjoin('artist_base.artist_title', 'artist_master.artist_id', '=', 'artist_title.artist_id')
-          ->where('artist_title.artist_id', '=', "{$record->artist_id}")
-          ->get();
-    return view('Artist.show', compact('record', 'artistTitles'));
+    //バンド名に紐付くタイトルとバンド名の連想配列を取得する
+    $artistData = $this->artistRepository->showArtistDetail($name);
+    //変数を取り出して、戻り値に渡す
+    $artistName = $artistData['artistName'];
+    $artistTitles = $artistData['artistTitles'];
+    return view('Artist.show', compact('artistName', 'artistTitles'));
   }
 
   public function storeTitles(Request $request){
