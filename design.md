@@ -1,8 +1,8 @@
 # アプリの設計
 ## 基本構成
 `
-App
-│
+App   
+│   
 ┝─Http
 │　　　　　　└─Controllers
 │      └─ArtistController.php
