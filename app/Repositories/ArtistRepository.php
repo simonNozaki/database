@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\Artist;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\ArtistRepositoryInterface;
 
 
 class ArtistRepository implements ArtistRepositoryInterface{
 
   public function getAll(){
-    $records = Artist::all();
+    $records = DB::table('artist_master')->get();
     return $records;
   }
 
