@@ -27,13 +27,17 @@ class ArtistRepository implements ArtistRepositoryInterface{
     $userId = $request->input('userId');
 
     //バリデーション
-    $this->validate($request, [
-        'artist_id' => 'max:11',
-        'name' => 'required|unique:artist_master|max:255',
-        'category' => 'required',
-        'area' => 'required',
-        'forFansOf1' => 'required'
-    ]);
+    try{
+      $request->validate([
+          'artist_id' => 'max:11',
+          'name' => 'required|unique:artist_master|max:255',
+          'category' => 'required',
+          'area' => 'required',
+          'forFansOf1' => 'required'
+      ]);
+    }catch(Exception $e){
+      $e->getMessage();
+    }
 
     $artistData = [
       'name' => $name,
@@ -45,7 +49,12 @@ class ArtistRepository implements ArtistRepositoryInterface{
       'user_id' => $userId
     ];
 
-    DB::table('artist_master')->insertGetId($artistData);
+    try{
+      DB::table('artist_master')->insertGetId($artistData);
+    }catch(Exception $e){
+      $e->getMessage();
+    }
+
   }
 
   public function getArtistByName(Request $request){
@@ -65,7 +74,8 @@ class ArtistRepository implements ArtistRepositoryInterface{
   public function showArtistDetail($name){
     $artistName = DB::table('artist_base.artist_master')->where('name', 'like', "%{$name}%")
           ->first();
-    $artistTitles = DB::table('artist_base.artist_master')->select('*')
+    $artistTitles = DB::table('artist_base.artist_master')
+          ->select('*')
           ->leftjoin('artist_base.artist_title', 'artist_master.artist_id', '=', 'artist_title.artist_id')
           ->where('artist_title.artist_id', '=', "{$artistName->artist_id}")
           ->get();
@@ -74,6 +84,33 @@ class ArtistRepository implements ArtistRepositoryInterface{
       'artistTitles' => $artistTitles
     ];
     return $artistData;
+  }
+
+  public function insertTitle(Request $request){
+    $artistId = $request->input('artistId');
+    $name = $request->input('name');
+    $title = $request->input('title');
+    $releasedYear = $request->input('releasedYear');
+
+    $request->validate([
+      'artistId' => 'required',
+      'title' => 'required|unique:artist_title',
+      'name' => 'required',
+      'releasedYear' => 'required'
+    ]);
+
+    try{
+      DB::table('artist_base.artist_title')
+            ->insert([
+              'artist_id' => $artistId,
+              'title' => $title,
+              'name' => $name,
+              'released_year' => $releasedYear
+            ]);
+    }
+    catch(Exception $e){
+       $e->getMessage();
+    }
   }
 
 }

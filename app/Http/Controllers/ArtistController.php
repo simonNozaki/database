@@ -54,27 +54,9 @@ class ArtistController extends Controller{
   }
 
   public function storeTitles(Request $request){
-    $artistId = $request->input('artistId');
-    $name = $request->input('name');
-    $title = $request->input('title');
-    $releasedYear = $request->input('releasedYear');
-
-    $this->validate($request, [
-      'artistId' => 'required',
-      'title' => 'required|unique:artist_title',
-      'name' => 'required',
-      'releasedYear' => 'required'
-    ]);
-
-    try{
-      DB::table('artist_base.artist_title')
-            ->insert([ 'artist_id' => $artistId, 'title' => $title, 'name' => $name, 'released_year' => $releasedYear ]);
-      $request->session()->flash('flash', 'Title Registered');
-      return redirect()->to('database/show/{name}');
-    }
-    catch(Exception $e){
-       $e->getMessage();
-    }
+    $this->artistRepository->insertTitle($request);
+    $request->session()->flash('flash', 'Title Registered');
+    return redirect()->to('database/show/{name}');
   }
 
 }
