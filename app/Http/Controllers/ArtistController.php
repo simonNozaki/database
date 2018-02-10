@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Artist;
 use Illuminate\Support\Facades\DB;
-use Input;
 use Illuminate\Http\Request;
-use App\Http\Requests\ArtistRequest;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Repositories\ArtistRepositoryInterface;
 use App\Repositories\ArtistRepository;
 
@@ -54,9 +50,17 @@ class ArtistController extends Controller{
   }
 
   public function storeTitles(Request $request){
-    $this->artistRepository->insertTitle($request);
+    //インサートしたレコードのバンド情報を受け取る
+    $artistName = $this->artistRepository->insertTitle($request);
+    $name = $artistName['name'];
     $request->session()->flash('flash', 'Title Registered');
-    return redirect()->to('database/show/{name}');
+    return view('Artist.show', compact('artistName'));
+  }
+
+  public function titleForm($name){
+    $artistData = $this->artistRepository->showArtistDetail($name);
+    $artistName = $artistData['artistName'];
+    return view('Artist.title', compact('artistName'));
   }
 
 }

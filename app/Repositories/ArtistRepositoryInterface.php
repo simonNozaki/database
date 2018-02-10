@@ -20,14 +20,8 @@ interface ArtistRepositoryInterface{
   */
   public function getArtistByName(Request $request);
 
-  /**
-  *  バンドの詳細情報を表示する
-  */
   public function showArtistDetail($name);
 
-  /**
-  *  アルバムを登録する
-  */
   public function insertTitle(Request $request);
 }
 

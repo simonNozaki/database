@@ -18,35 +18,35 @@ class ArtistRepository implements ArtistRepositoryInterface{
 
   //バンド情報を登録するメソッド
   public function inseertArtistData(Request $request){
-    $name = $request->input('name');
-    $category = $request->input('category');
-    $area = $request->input('area');
+    $name       = $request->input('name');
+    $category   = $request->input('category');
+    $area       = $request->input('area');
     $forFansOf1 = $request->input('forFansOf1');
     $forFansOf2 = $request->input('forFansOf2');
     $forFansOf3 = $request->input('forFansOf3');
-    $userId = $request->input('userId');
+    $userId     = $request->input('userId');
 
     //バリデーション
     try{
       $request->validate([
-          'artist_id' => 'max:11',
-          'name' => 'required|unique:artist_master|max:255',
-          'category' => 'required',
-          'area' => 'required',
-          'forFansOf1' => 'required'
+          'artist_id'  => ['max:11'],
+          'name'       => ['required','unique:artist_master','max:255','regex:/^[0-9a-zA-Z]{20}$/'],
+          'category'   => ['required','regex:/^[0-9a-zA-Z]{20}$/'],
+          'area'       => ['required','regex:/^[0-9a-zA-Z]{20}$/'],
+          'forFansOf1' => ['required','regex:/^[0-9a-zA-Z]{20}$/']
       ]);
     }catch(Exception $e){
       $e->getMessage();
     }
 
     $artistData = [
-      'name' => $name,
-      'category' => $category,
-      'area' => $area,
+      'name'          => $name,
+      'category'      => $category,
+      'area'          => $area,
       'for_fans_of_1' => $forFansOf1,
       'for_fans_of_2' => $forFansOf2,
       'for_fans_of_3' => $forFansOf3,
-      'user_id' => $userId
+      'user_id'       => $userId
     ];
 
     try{
@@ -87,26 +87,28 @@ class ArtistRepository implements ArtistRepositoryInterface{
   }
 
   public function insertTitle(Request $request){
-    $artistId = $request->input('artistId');
-    $name = $request->input('name');
-    $title = $request->input('title');
+    $artistId     = $request->input('artistId');
+    $name         = $request->input('name');
+    $title        = $request->input('title');
     $releasedYear = $request->input('releasedYear');
 
     $request->validate([
-      'artistId' => 'required',
-      'title' => 'required|unique:artist_title',
-      'name' => 'required',
-      'releasedYear' => 'required'
+      'artistId'     => ['required'],
+      'title'        => ['required','unique:artist_title', 'regex:/^[0-9a-zA-Z]{20}$/'],
+      'name'         => ['required','regex:/^[0-9a-zA-Z]{20}$/'],
+      'releasedYear' => ['required','regex:/^[0-9a-zA-Z]{20}$/']
     ]);
 
     try{
       DB::table('artist_base.artist_title')
             ->insert([
-              'artist_id' => $artistId,
-              'title' => $title,
-              'name' => $name,
+              'artist_id'     => $artistId,
+              'title'         => $title,
+              'name'          => $name,
               'released_year' => $releasedYear
             ]);
+      $artistName = [ 'name' => $name];
+      return $artistName;
     }
     catch(Exception $e){
        $e->getMessage();

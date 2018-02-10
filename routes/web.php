@@ -29,8 +29,16 @@ Route::prefix('database')->group(function(){
 
   Route::post('storeTitles', 'ArtistController@storeTitles');
 
+  Route::get('{name}/registerTitle', 'ArtistController@titleForm');
+
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('user')->group(function(){
+
+  Route::get('{id}', 'UserController@top');
+
+});
