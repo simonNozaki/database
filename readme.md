@@ -12,6 +12,7 @@ App
        └─ArtistRepositories.php
        └─ArtistRepositoryInterface.php
 `
+
 - リポジトリにビジネスロジックを入れておき、コントローラーで呼び出して利用する、リポジトリパターンを採用する。
 - `Repositories`ディレクトリは自作。
 - 作成した`Repositories`は、それぞれ`App\Providers\AppServiceProvider`に登録し、Serviceコンテナに入れておく。
