@@ -30,10 +30,10 @@ class ArtistRepository implements ArtistRepositoryInterface{
     try{
       $request->validate([
           'artist_id'  => ['max:11'],
-          'name'       => ['required','unique:artist_master','max:255','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠]{1,100}+$/u'],
-          'category'   => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠]{1,100}+$/u'],
-          'area'       => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠]{1,100}+$/u'],
-          'forFansOf1' => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠]{1,100}+$/u']
+          'name'       => ['required','unique:artist_master','max:255','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'],
+          'category'   => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'],
+          'area'       => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'],
+          'forFansOf1' => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u']
       ]);
     }catch(Exception $e){
       $e->getMessage();
@@ -94,9 +94,9 @@ class ArtistRepository implements ArtistRepositoryInterface{
 
     $request->validate([
       'artistId'     => ['required'],
-      'title'        => ['required','unique:artist_title', 'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠]{1,100}+$/u'],
-      'name'         => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠]{1,100}+$/u'],
-      'releasedYear' => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠]{1,100}+$/u']
+      'title'        => ['required','unique:artist_title', 'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'],
+      'name'         => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'],
+      'releasedYear' => ['required','regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u']
     ]);
 
     try{

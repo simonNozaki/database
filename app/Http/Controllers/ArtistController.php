@@ -51,10 +51,9 @@ class ArtistController extends Controller{
 
   public function storeTitles(Request $request){
     //インサートしたレコードのバンド情報を受け取る
-    $artistName = $this->artistRepository->insertTitle($request);
-    $name = $artistName['name'];
+    $artistName = $this->artistRepository->insertTitle($request)['name'];
     $request->session()->flash('flash', 'Title Registered');
-    return view('Artist.show', compact('artistName'));
+    return redirect()->to("database/show/{$artistName}");
   }
 
   public function titleForm($name){

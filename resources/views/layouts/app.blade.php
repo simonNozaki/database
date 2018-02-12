@@ -59,7 +59,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                    <li><a href="{{ url( '/user/{id}' ) }}">{{ Auth::user()->name }}</a></li>
+                                    <li><a href="/user/{{{ Auth::user()->id }}}">{{ Auth::user()->name }}</a></li>
                                 </ul>
                             </li>
                         @endguest

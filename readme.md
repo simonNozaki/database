@@ -12,7 +12,7 @@ App
        └─ArtistRepositories.php
        └─ArtistRepositoryInterface.php
 `
-
+### 構成の詳細
 - リポジトリにビジネスロジックを入れておき、コントローラーで呼び出して利用する、リポジトリパターンを採用する。
 - `Repositories`ディレクトリは自作。
 - 作成した`Repositories`は、それぞれ`App\Providers\AppServiceProvider`に登録し、Serviceコンテナに入れておく。
@@ -40,3 +40,10 @@ tinker内
 ## artisan
 - `php artisan make:migration create_xxxx_table` : マイグレーションファイルを作成する。
 - `php artisan migrate` : マイグレーションを実行する。
+
+# Laravel
+## ServiceProvider
+- Serviceコンテナが、各サービスのInterfaceと実装を管理する。
+- `AppServiceProvider.php`でサービスコンテナにバインドするリポジトリを定義する。
+- 管理するサービスは、Interfaceと実装を一組ずつ分けてバインドする。
+- コマンドベースでサービスプロバイダーを自作する場合、作成したプロバイダーにリポジトリをバインドし、かつ`app\config.php`にプロバイダを登録する。
