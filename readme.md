@@ -25,10 +25,15 @@ App
 
 # コマンド
 ## Tinker
+### Tinkerとは
+- 公式ドキュメント : https://readouble.com/laravel/5.4/ja/artisan.html
+- デバッガー。対話型シェル(REPL)で、コンソール上からコマンドでデバッグを行える。
+### Tinker内コマンド
 - `php artisan tinker` : Tinkerの起動
-***
+- 基本的な使い方として、PHPコードを書いて結果の取得、DBへの書き込みチェックなどができる。
 tinker内
 - `Config::get('database.connections.mysql.database');` : DBの設定を取得する。
+- `whereami` : 現在の操作位置を表示する。
 ## MySQL
 - `mysql.server start` : MySQLのサーバを起動する。`stop`で停止。
 - `create database db_name;`スキーマの作成。

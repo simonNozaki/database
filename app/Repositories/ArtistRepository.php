@@ -67,12 +67,14 @@ class ArtistRepository implements ArtistRepositoryInterface{
     }
     $artistRecord = [
       'name' => $name,
-      'records' => $records];
+      'records' => $records
+    ];
     return $artistRecord;
   }
 
   public function showArtistDetail($name){
-    $artistName = DB::table('artist_base.artist_master')->where('name', 'like', "%{$name}%")
+    $artistName = DB::table('artist_base.artist_master')
+          ->where('name', 'like', "%{$name}%")
           ->first();
     $artistTitles = DB::table('artist_base.artist_master')
           ->select('*')

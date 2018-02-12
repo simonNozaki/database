@@ -10,7 +10,6 @@ class UserRepository implements UserRepositoryInterface{
 
   public function getUserById($id){
     $userInfos = DB::table('users')
-                 ->select('*')
                  ->where('id', '=', "%{$id}%")
                  ->get();
     return $userInfos;
