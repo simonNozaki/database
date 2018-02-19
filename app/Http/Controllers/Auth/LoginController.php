@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -21,19 +22,34 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
+     * ログイン後のユーザのログイン先。
      * @var string
      */
     protected $redirectTo = '/home';
 
     /**
-     * Create a new controller instance.
-     *
+     * コントローラクラスのコンストラクタ。
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * GitHubの認証ページヘユーザーをリダイレクトする。
+     * OAuthプロバイダへのリダイレクトを担う。
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider(){
+        return Socialite::driver('github')->redirect();
+    }
+
+    /**
+     * GitHubからユーザー情報を取得する。
+     * $user->token;
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback(){
+        $user = Socialite::driver('github')->user();
     }
 }

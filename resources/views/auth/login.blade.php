@@ -60,6 +60,7 @@
                                 </a>
                             </div>
                         </div>
+                        <a href="login/github">Log in with Github</a>
                     </form>
                 </div>
             </div>

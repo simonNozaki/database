@@ -1,17 +1,17 @@
 # アプリの設計
 ## 基本構成
-`
+### Directories
 App   
-│   
-┝─Http
-│  └─Controllers
-│      └─ArtistController.php
-┝Providers
-│      └─AppServiceProvider.php
-└Repositories
-       └─ArtistRepositories.php
-       └─ArtistRepositoryInterface.php
-`
+│    
+┝─Http    
+│  　└─Controllers    
+│  　　    └─ArtistController.php    
+┝Providers    
+│ 　     └─AppServiceProvider.php    
+└Repositories    
+　　       └─ArtistRepositories.php    
+　　       └─ArtistRepositoryInterface.php    
+
 ### 構成の詳細
 - リポジトリにビジネスロジックを入れておき、コントローラーで呼び出して利用する、リポジトリパターンを採用する。
 - `Repositories`ディレクトリは自作。
@@ -45,6 +45,8 @@ tinker内
 ## artisan
 - `php artisan make:migration create_xxxx_table` : マイグレーションファイルを作成する。
 - `php artisan migrate` : マイグレーションを実行する。
+- `php artisan make:notification [クラス名]` : Notificationクラスを自動で生成する。
+- `php artisan event:generate` : Eventクラスの自動生成。
 
 # Laravel
 ## ServiceProvider
@@ -52,3 +54,5 @@ tinker内
 - `AppServiceProvider.php`でサービスコンテナにバインドするリポジトリを定義する。
 - 管理するサービスは、Interfaceと実装を一組ずつ分けてバインドする。
 - コマンドベースでサービスプロバイダーを自作する場合、作成したプロバイダーにリポジトリをバインドし、かつ`app\config.php`にプロバイダを登録する。
+## 通知システム
+Laravelでは、デフォルトでメールやSMS、Slackへの通知機能を装備しており、設定をすることで通知を行える。

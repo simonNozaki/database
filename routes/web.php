@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/**
+*  アーティスト系リクエストのルーティング
+*/
 Route::prefix('database')->group(function(){
 
   Route::get('index', 'ArtistController@index');
@@ -35,6 +38,9 @@ Route::prefix('database')->group(function(){
 
 Auth::routes();
 
+/**
+*  ユーザ系リクエストのルーティング
+*/
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('user')->group(function(){
@@ -42,3 +48,11 @@ Route::prefix('user')->group(function(){
   Route::get('{id}', 'UserController@top');
 
 });
+
+/**
+*  ソーシャル認証リクエストのルーティング
+*/
+//Githubへのリダイレクト
+Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+//ユーザ情報の取得
+Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
