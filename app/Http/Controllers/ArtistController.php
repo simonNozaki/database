@@ -10,6 +10,9 @@ use App\Repositories\ArtistRepository;
 
 class ArtistController extends Controller{
 
+  /**
+  *  ArtistRepositoryのコンストラクタ。
+  */
   public function __construct(ArtistRepositoryInterface $artistRepository){
     $this->artistRepository = $artistRepository;
   }
