@@ -1,4 +1,4 @@
-# アプリの設計
+# アプリケーションの設計
 ## 基本構成
 ### Directories
 App   
@@ -51,6 +51,7 @@ tinker内
   - git内ではラベルとURIを紐付けてリポジトリを識別している（はず）
   - 初期化したGitのDirectoryで、このコマンドを行うとリモートのリポジトリを作成した後でもGitの管理対象にできる。
 - `git push origin 【ブランチ名】` : ローカルブランチをリモートにプッシュする。
+- `git reset --hard [commit ID]` : コミットしたところまで戻す。
 ### Notice
 - ローカルのブランチもリモートにプッシュすることで、ローカルとリモートで保存の状況を揃える。
 ## artisan
@@ -59,7 +60,7 @@ tinker内
 - `php artisan make:notification [クラス名]` : Notificationクラスを自動で生成する。
 - `php artisan event:generate` : Eventクラスの自動生成。
 
-# Laravel
+# Laravelのシステム
 ## ServiceProvider
 - Serviceコンテナが、各サービスのInterfaceと実装を管理する。
 - `AppServiceProvider.php`でサービスコンテナにバインドするリポジトリを定義する。
@@ -67,3 +68,13 @@ tinker内
 - コマンドベースでサービスプロバイダーを自作する場合、作成したプロバイダーにリポジトリをバインドし、かつ`app\config.php`にプロバイダを登録する。
 ## 通知システム
 Laravelでは、デフォルトでメールやSMS、Slackへの通知機能を装備しており、設定をすることで通知を行える。
+## ソーシャル認証
+### 概要
+Socialiteのパッケージを利用して、SNS等のアカウントやServiceと連携した認証を行うことができる。  
+このアプリでは、Githubとの連携を行う。
+### 設定手順
+- Socialiteのインストール
+  - `composer require laravel/socialite`
+- `config/services.php`に、クライアントIDやリダイレクト先URLを設定する
+- `Auth\LoginController`に、認証先のServiceへのリダイレクト、及びユーザ情報取得のメソッドを準備する。
+- Github上で、OAuthアプリケーションを登録し、キーとIDを取得する。
