@@ -52,6 +52,22 @@ tinker内
   - 初期化したGitのDirectoryで、このコマンドを行うとリモートのリポジトリを作成した後でもGitの管理対象にできる。
 - `git push origin 【ブランチ名】` : ローカルブランチをリモートにプッシュする。
 - `git reset --hard [commit ID]` : コミットしたところまで戻す。
+- `git rebase [rebase branch]` : 作業ブランチを一時保存した状態で`git reset --hard master`を行い、その上でリベース先に変更を載せる。
+  - マージと異なり、元のブランチは一時保存した上で新しくコミットを作り直すことになる。
+  - `git pull ^^ ^^`は、`git fetch`と`git merge`を一度に行うコマンド。
+### Appendix : Gitでrejectされるとき
+! [rejected]        master -> master (non-fast-forward)   
+error: failed to push some refs to 'https://github.com/simonNozaki/SpringMybatis.git'   
+hint: Updates were rejected because the tip of your current branch is behind   
+hint: its remote counterpart. Integrate the remote changes (e.g.   
+hint: 'git pull ...') before pushing again.   
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.   
+ようは、リモートの変更をローカルに反映できてない状態にある。  
+なので、とりあえずは`git pull [remote repository] master`で最新の状態にする。  
+これで解決しない場合は、下記コマンドを試してみる。
+- `git pull --rebase [remote repository] master` : `git fetch`の後に`git rebase`を行う。
+  - リベースのオプションを付けてプルすることにより、マージコミットが作られず、履歴も比較的キレイに残る。
+  - 参照 : http://kray.jp/blog/git-pull-rebase/
 ### Notice
 - ローカルのブランチもリモートにプッシュすることで、ローカルとリモートで保存の状況を揃える。
 ## artisan
