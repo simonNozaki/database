@@ -77,6 +77,11 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 - `php artisan event:generate` : Eventクラスの自動生成。
 
 # Laravelのシステム
+## Gitによるバージョン管理
+何点か、気をつけることがあります。
+- `.env`は、`.gitignore`によりクローンを無視されるので、`.env.example`を複製してローカルにあわせます
+- `vendor`配下のディレクトリがまるっとないので、composerを利用して補完します。
+    - `composer install`で必要なパッケージをまるっと取得します。
 ## ServiceProvider
 - Serviceコンテナが、各サービスのInterfaceと実装を管理する。
 - `AppServiceProvider.php`でサービスコンテナにバインドするリポジトリを定義する。
