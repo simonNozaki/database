@@ -44,6 +44,8 @@ tinker内
 - `ALTER db_table ADD COLUMN column_name data_info` : カラムの追加。ALTER文で、テーブルの仕様を変更できる。
 ## Git
 ### Gitコマンド
+- `git branch` : ブランチすべてを表示する。
+  - `git branch -r` : リモートブランチを表示する
 - `git log` : コミットの履歴を表示。過去コミットを参照するときに使う。
 - `git reflog` : これまでに行ったブランチの切替履歴を表示する。IDやHEADを参照できる。
 - `git remote -v` : 管理しているリモートのリポジトリを表示する。
@@ -64,6 +66,10 @@ hint: 'git pull ...') before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.   
 ようは、リモートの変更をローカルに反映できてない状態にある。  
 なので、とりあえずは`git pull [remote repository] master`で最新の状態にする。  
+もしくは、初期化したばかりのリモートリポジトリは、ローカルリポジトリの履歴と関係を    
+もたないので、無関係であることを許可する。    
+- `git merge --allow-unrelated-histories origin/master`
+  - これで、マージできるので`git status`で状態を確認してからプッシュする。
 これで解決しない場合は、下記コマンドを試してみる。
 - `git pull --rebase [remote repository] master` : `git fetch`の後に`git rebase`を行う。
   - リベースのオプションを付けてプルすることにより、マージコミットが作られず、履歴も比較的キレイに残る。
