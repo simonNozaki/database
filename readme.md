@@ -43,6 +43,11 @@ tinker内
 - `DROP DATABASE db_name;`スキーマの削除。
 - `ALTER db_table ADD COLUMN column_name data_info` : カラムの追加。ALTER文で、テーブルの仕様を変更できる。
 ## Git
+### .git
+GitDirectoryに関する、もろもろのファイルを格納しています。
+- `.git/config` : Gitの設定ファイル。リモートリポジトリの管理などはこのファイルで行う
+  - リモートリポジトリを手動で追加シた場合、ユーザ名とパスワードを聞かれます
+  - `url = https://username:password@github.com/username/repository.git`のように書き換えることで解消できます
 ### Gitコマンド
 - `git branch` : ブランチすべてを表示する。
   - `git branch -r` : リモートブランチを表示する
