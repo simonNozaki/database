@@ -35,14 +35,6 @@ App  
 tinker内
 - `Config::get('database.connections.mysql.database');` : DBの設定を取得する。
 - `whereami` : 現在の操作位置を表示する。
-## MySQL
-### コマンド
-- `mysql.server start` : MySQLのサーバを起動する。`stop`で停止。
-### SQL文
-#### DML(Database Manipulation Language)
-- `CREATE DATABASE db_name;`スキーマの作成。
-- `DROP DATABASE db_name;`スキーマの削除。
-- `ALTER db_table ADD COLUMN column_name data_info` : カラムの追加。ALTER文で、テーブルの仕様を変更できる。
 ## artisan
 - `php artisan make:migration create_xxxx_table` : マイグレーションファイルを作成する。
 - `php artisan migrate` : マイグレーションを実行する。
