@@ -3,9 +3,11 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Exception;
 use App\Repositories\ArtistRepository;
 use App\Constants\CodeDefine;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ArtistRepositoryTest extends TestCase{
 
@@ -31,7 +33,7 @@ class ArtistRepositoryTest extends TestCase{
   	try{
   		$result = $artistRepository->showArtistDetail("THREE LIGHTS DOWN KINGS");
   		$this->assertEquals($result['artistName']->category, "POP PUNK");
-  	}catch (Exeption $e){
+  	}catch (Exception $e){
   		Log::error($cd->EXE_ERR);
   		throw new Exception();
   	}

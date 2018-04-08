@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Exception;
 use App\Repositories\ArtistRepositoryInterface;
 
 class ArtistRepository implements ArtistRepositoryInterface {
@@ -89,7 +90,7 @@ class ArtistRepository implements ArtistRepositoryInterface {
 					'records' => $records
 			];
 			return $artistRecord;
-		} catch ( Exeption $e ) {
+		} catch ( Exception $e ) {
 			throw new Exception ();
 		}
 	}

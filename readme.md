@@ -7,11 +7,18 @@ App  
 ┝─Http    
 │  　└─Controllers    
 │  　　    └─ArtistController.php    
+│  　　    └─UserController.php    
+│  　　    └─HomeController.php    
+│  　　    └─Controller.php    
 ┝Providers    
 │ 　     └─AppServiceProvider.php    
+┝Constants    
+│ 　     └─CodeDefine.php    
 └Repositories    
-　　       └─ArtistRepositories.php    
-　　       └─ArtistRepositoryInterface.php    
+　　      └─ArtistRepositories.php    
+　　      └─ArtistRepositoryInterface.php    
+     └─UserRepositories.php    
+　　      └─UserRepositoryInterface.php    
 
 ### 構成の詳細
 - リポジトリにビジネスロジックを入れておき、コントローラーで呼び出して利用する、リポジトリパターンを採用する。

@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Exception;
 use App\Repositories\UserRepository;
 use App\Constants\CodeDefine;
 
@@ -14,7 +16,7 @@ class UserRepository implements UserRepositoryInterface {
 		return $userInfos;
 		}catch (Exception $e){
 			Log::error($cd->EXE_ERR);
-			throw new Excception();
+			throw new Exception();
 		}
 	}
 	public function featchLatestPosting($id) {
@@ -25,7 +27,7 @@ class UserRepository implements UserRepositoryInterface {
 			return $posted;
 		} catch ( Exception $e ) {
 			Log::error($cd->EXE_ERR);
-			throw new Excception();
+			throw new Exception();
 		}
 	}
 }

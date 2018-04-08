@@ -16,8 +16,10 @@
 			</arguments>
 		</buildCommand>
 	</buildSpec>
+        <buildSpec>
 	<natures>
 		<nature>org.eclipse.php.core.PHPNature</nature>
+        </natures>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>

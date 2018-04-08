@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Repositories\ArtistRepositoryInterface;
-use App\Repositories\ArtistRepository;
 
 class ArtistController extends Controller{
 

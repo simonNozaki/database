@@ -4,8 +4,10 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Exception;
 use App\Constants\CodeDefine;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Log;
 
 class UserRepositoryTest extends TestCase{
 
