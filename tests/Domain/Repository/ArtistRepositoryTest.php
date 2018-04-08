@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class ArtistRepositoryTest extends TestCase{
 
+  // 完了
   /** @test */
   public function getAll(){
   	$artistRepository = new ArtistRepository();
@@ -23,8 +24,9 @@ class ArtistRepositoryTest extends TestCase{
   	}
   }
 
+  // 完了
   /** @test */
-  public function showArtistDetail(){
+  public function showArtistDetail_Case1(){
   	$artistRepository = new ArtistRepository();
   	try{
   		$result = $artistRepository->showArtistDetail("THREE LIGHTS DOWN KINGS");
@@ -36,7 +38,21 @@ class ArtistRepositoryTest extends TestCase{
   }
 
   /** @test */
-  public function getArtistByName(){
+  // 空の文字列で検索して、検索結果がないことを確認する
+  public function showArtistDetail_Case2(){
+  	$artistRepository = new ArtistRepository();
+  	try{
+  		$result = $artistRepository->showArtistDetail(null);
+  		var_dump($result);
+  		$this->assertEquals($result[0], "Nothing is searched");
+  	}catch(Exception $e){
+  		Log::error($cd->EXE_ERR);
+  		throw new Exception();
+  	}
+  }
+
+  /** @test */
+  public function getArtistByName_Case1(){
   	$artistRepository = new ArtistRepository();
   	$req = new Request();
   	$name = $req->input ('name');

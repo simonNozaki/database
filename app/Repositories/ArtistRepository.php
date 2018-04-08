@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Repositories\ArtistRepositoryInterface;
 
 class ArtistRepository implements ArtistRepositoryInterface {
-
 	public function getAll() {
 		$records = DB::table ( 'artist_master' )->get ();
 		return $records;
@@ -72,10 +71,18 @@ class ArtistRepository implements ArtistRepositoryInterface {
 	}
 	public function getArtistByName(Request $request) {
 		$name = $request->input ( 'name' );
+		$request->validate ( [
+				'name' => [
+						'required',
+						'unique:artist_master',
+						'max:255',
+						'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]+/'
+				]
+		] );
 		try {
 			$records = DB::table ( 'artist_master' )->where ( 'name', 'like', "%{$name}%" )->get ();
-			if (empty ( $records )) {
-				$records = "Nothing is searched";
+			if (count ( $records ) == 0) {
+				$records[0]->name = "Nothing is searched";
 			}
 			$artistRecord = [
 					'name' => $name,
@@ -100,7 +107,6 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			throw new Exception ();
 		}
 	}
-
 	public function insertTitle(Request $request) {
 		$artistId = $request->input ( 'artistId' );
 		$name = $request->input ( 'name' );
