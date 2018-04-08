@@ -2,11 +2,14 @@
 
 namespace App\Repositories;
 
-use Illuminate\Http\Request;
 
 interface UserRepositoryInterface{
 
-  public function getUserById($id);
+	/**  IDでユーザ情報を取得します */
+    public function getUserById($id);
+
+    /** ユーザの投稿したレコード過去10件までを取得し表示します */
+    public function featchLatestPosting($id);
 
 }
 

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Http\Request;
+
 interface ArtistRepositoryInterface{
   /**
   * 全県取得する。
@@ -20,8 +21,16 @@ interface ArtistRepositoryInterface{
   */
   public function getArtistByName(Request $request);
 
+  /**
+   * アーティストの詳細情報を取得、表示する
+   * @param $name
+   */
   public function showArtistDetail($name);
 
+  /**
+   * アーティストのアルバムを登録する
+   * @param Request $request
+   */
   public function insertTitle(Request $request);
 }
 

@@ -1,7 +1,8 @@
-# アプリケーションの設計
-## 基本構成
-### Directories
-App   
+# database
+Artistの情報を登録・読み出しするアプリケーションです。     
+典型的なCRUDアプリの構成になっています。
+## Directories構成
+App   
 │    
 ┝─Http    
 │  　└─Controllers    
@@ -23,7 +24,7 @@ App
 - DBファサードの方が、よりSQLライクで扱えてメンテナンスしやすい。
 
 
-# コマンド
+# ライブラリ系コマンド
 ## Tinker
 ### Tinkerとは
 - 公式ドキュメント : https://readouble.com/laravel/5.4/ja/artisan.html
@@ -34,42 +35,6 @@ App
 tinker内
 - `Config::get('database.connections.mysql.database');` : DBの設定を取得する。
 - `whereami` : 現在の操作位置を表示する。
-## MySQL
-### コマンド
-- `mysql.server start` : MySQLのサーバを起動する。`stop`で停止。
-### SQL文
-#### DML(Database Manipulation Language)
-- `CREATE DATABASE db_name;`スキーマの作成。
-- `DROP DATABASE db_name;`スキーマの削除。
-- `ALTER db_table ADD COLUMN column_name data_info` : カラムの追加。ALTER文で、テーブルの仕様を変更できる。
-## Git
-### Gitコマンド
-- `git log` : コミットの履歴を表示。過去コミットを参照するときに使う。
-- `git reflog` : これまでに行ったブランチの切替履歴を表示する。IDやHEADを参照できる。
-- `git remote -v` : 管理しているリモートのリポジトリを表示する。
-- `git remote add 【ラベル名】 【リモートリポジトリURI】` : 管理するリモートのリポジトリを追加する。デフォルトのラベル名は`origin`だが、変更可能。
-  - git内ではラベルとURIを紐付けてリポジトリを識別している（はず）
-  - 初期化したGitのDirectoryで、このコマンドを行うとリモートのリポジトリを作成した後でもGitの管理対象にできる。
-- `git push origin 【ブランチ名】` : ローカルブランチをリモートにプッシュする。
-- `git reset --hard [commit ID]` : コミットしたところまで戻す。
-- `git rebase [rebase branch]` : 作業ブランチを一時保存した状態で`git reset --hard master`を行い、その上でリベース先に変更を載せる。
-  - マージと異なり、元のブランチは一時保存した上で新しくコミットを作り直すことになる。
-  - `git pull ^^ ^^`は、`git fetch`と`git merge`を一度に行うコマンド。
-### Appendix : Gitでrejectされるとき
-! [rejected]        master -> master (non-fast-forward)   
-error: failed to push some refs to 'https://github.com/simonNozaki/SpringMybatis.git'   
-hint: Updates were rejected because the tip of your current branch is behind   
-hint: its remote counterpart. Integrate the remote changes (e.g.   
-hint: 'git pull ...') before pushing again.   
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.   
-ようは、リモートの変更をローカルに反映できてない状態にある。  
-なので、とりあえずは`git pull [remote repository] master`で最新の状態にする。  
-これで解決しない場合は、下記コマンドを試してみる。
-- `git pull --rebase [remote repository] master` : `git fetch`の後に`git rebase`を行う。
-  - リベースのオプションを付けてプルすることにより、マージコミットが作られず、履歴も比較的キレイに残る。
-  - 参照 : http://kray.jp/blog/git-pull-rebase/
-### Notice
-- ローカルのブランチもリモートにプッシュすることで、ローカルとリモートで保存の状況を揃える。
 ## artisan
 - `php artisan make:migration create_xxxx_table` : マイグレーションファイルを作成する。
 - `php artisan migrate` : マイグレーションを実行する。
@@ -77,6 +42,13 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 - `php artisan event:generate` : Eventクラスの自動生成。
 
 # Laravelのシステム
+## Gitによるバージョン管理
+何点か、気をつけることがあります。
+- `.env`は、`.gitignore`によりクローンを無視されるので、`.env.example`を複製してローカルにあわせます
+- `vendor`配下のディレクトリがまるっとないので、composerを利用して補完します。
+    - `composer install`で必要なパッケージをまるっと取得します。
+- `.env.example`には、アプリ固有のキーを含めないので、ローカルで生成します
+    - `php artisan key:generate`を利用すること。
 ## ServiceProvider
 - Serviceコンテナが、各サービスのInterfaceと実装を管理する。
 - `AppServiceProvider.php`でサービスコンテナにバインドするリポジトリを定義する。
