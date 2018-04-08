@@ -19,7 +19,8 @@ class UserController extends Controller{
 
   public function top($id){
     $userInfos = $this->userRepository->getUserById($id);
-    return view('User.top', compact('userInfos'));
+    $posted = $this->userRepository->featchLatestPosting($id);
+    return view('User.top', compact('userInfos','posted'));
   }
 
 }

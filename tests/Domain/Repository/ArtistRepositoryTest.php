@@ -36,18 +36,19 @@ class ArtistRepositoryTest extends TestCase{
   }
 
   /** @test */
-//   public function getArtistByName(){
-//   	$artistRepository = new ArtistRepository();
-//   	$req = new Request();
-//   	$name = $req->input ('name');
-//   	echo "Input: " + $name;
-//   	try{
-//   		$result = $artistRepository->getArtistbyName($req);
-//   		$this->assertEquals(count($result), 1);
-//   	}catch (Exception $e){
-//   		Log::error($cd->EXE_ERR);
-//   		throw new Exception();
-//   	}
-//   }
+  public function getArtistByName(){
+  	$artistRepository = new ArtistRepository();
+  	$req = new Request();
+  	$name = $req->input ('name');
+  	echo "Input: ".$name;
+  	try{
+  		$result = $artistRepository->getArtistbyName($req);
+  		echo var_dump($result);
+  		$this->assertEquals(count($result), 2);
+  	}catch (Exception $e){
+  		Log::error($cd->EXE_ERR);
+  		throw new Exception();
+  	}
+  }
 }
 ?>
