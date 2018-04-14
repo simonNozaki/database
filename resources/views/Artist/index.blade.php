@@ -5,7 +5,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><h3>Bands Index<h3></div>
+                <div class="panel-heading" style="text-align:center;">
+                    <h3>アーティスト一覧<h3>
+                </div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -23,8 +25,12 @@
                     @else
 
                     @foreach($records as $record)
-                      <p><a href= "/database/show/{{{ $record->name }}}" >{{ $record->name }}</a></p>
-                      <p> {{ $record->area }} </p>
+                    <div class="collection">
+                        <a href="/database/show/{{{ $record->name }}}" class="collection-item">
+                            <span class="badge">{{ $record->area }}</span>
+                            {{ $record->name }}
+                        </a>
+                    </div>
                     @endforeach
 
                     @endguest

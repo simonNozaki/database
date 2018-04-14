@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         //ソーシャルログイン使用
         Laravel\Socialite\SocialiteServiceProvider::class,
+        // Compoer開発ツール
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, 
 
     ],
 

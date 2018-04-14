@@ -6,22 +6,23 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 style="text-align:center;">{{ $artistName->name }}</h3>
-                    <p>Category: {{ $artistName->category }}</p>
-                    <p>Area: {{ $artistName->area }}</p>
+                    <p>ジャンル： {{ $artistName->category }}</p>
+                    <p>地域： {{ $artistName->area }}</p>
                     <p>For fans of...</p>
-                    <ul>
-                        <li><p>{{ $artistName->for_fans_of_1 }}</p></li>
+                    <ul class="collection">
+                        <li class="collection-item">{{ $artistName->for_fans_of_1 }}</li>
                         @if(isset($artistName->for_fans_of_2))
-                        <li><p>{{ $artistName->for_fans_of_2 }}</p></li>
+                        <li class="collection-item">{{ $artistName->for_fans_of_2 }}</li>
                         @endif
                         @if(isset($artistName->for_fans_of_3))
-                        <li><p>{{ $artistName->for_fans_of_3 }}</p></li>
+                        <li class="collection-item">{{ $artistName->for_fans_of_3 }}</li>
                         @endif
                     </ul>
                 </div>
 
                 <div class="panel-body">
                   @if(isset($artistTitles))
+                  <p>アーティストタイトル</p>
                   <ul class="list-group">
                     @foreach($artistTitles as $artistTitle)
                       <li class="list-group-item">{{ $artistTitle->title }} : {{ $artistTitle->released_year }}</li>
@@ -34,9 +35,18 @@
                   <p>アルバムの登録には、ログインが必要です。</p>
                   @else
                   <ul>
-                      <li><a href = "/database/{{{ $artistName->name }}}/registerTitle" class = "btn-link">Register Title</a>
+                      <li>
+                          <a href = "/database/{{{ $artistName->name }}}/registerTitle"
+                            class="btn btn-primary btn-lg btn-block">
+                              タイトルを登録する
+                            </a>
+                      </li>
                       @endguest
-                      <li><a href = "/database/index" class = "btn-link">Back to index</a>
+                      <li>
+                          <a href = "/database/index" class="btn btn-primary btn-lg btn-block">
+                            アーティスト一覧に戻る
+                          </a>
+                      </li>    
                   <ul>
                 </div>
             </div>

@@ -11,7 +11,6 @@
 |
 */
 
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -22,21 +21,19 @@ Route::get('/', function () {
 *  アーティスト系リクエストのルーティング
 */
 Route::prefix('database')->group(function(){
-
+  // 登録されているArtistの一覧
   Route::get('index', 'ArtistController@index');
-
+  // 新規Artist登録
   Route::get('new', 'ArtistController@new');
-
+  // Artistの検索
   Route::post('search', 'ArtistController@search');
-
+  // Artistの登録
   Route::post('store', 'ArtistController@store');
-
+  // Artistの詳細ページ表示
   Route::get('show/{name}', 'ArtistController@show');
-
+  // Artistのアルバムを登録する
   Route::post('storeTitles', 'ArtistController@storeTitles');
-
   Route::get('{name}/registerTitle', 'ArtistController@titleForm');
-
 });
 
 Auth::routes();
@@ -47,9 +44,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('user')->group(function(){
-
+  // ユーザトップページ
   Route::get('{id}', 'UserController@top');
-
 });
 
 /**

@@ -2,15 +2,24 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Exception;
 use App\Repositories\ArtistRepositoryInterface;
+use App\Constants\CodeDefine;
 
 class ArtistRepository implements ArtistRepositoryInterface {
 	public function getAll() {
-		$records = DB::table ( 'artist_master' )->get ();
-		return $records;
+		$cd = new CodeDefine();
+		try{
+			$records = DB::table ( 'artist_master' )->get ();
+			return $records;
+		}catch(Exception $e){
+			Log::error($cd->EXE_ERR);
+			throw new Exception ();
+		}
+
 	}
 
 	// バンド情報を登録するメソッド
@@ -23,6 +32,9 @@ class ArtistRepository implements ArtistRepositoryInterface {
 		$forFansOf3 = $request->input ( 'forFansOf3' );
 		$userId = $request->input ( 'userId' );
 
+    // CodeDefine
+		$cd = new CodeDefine();
+
 		// バリデーション
 		try {
 			$request->validate ( [
@@ -33,23 +45,23 @@ class ArtistRepository implements ArtistRepositoryInterface {
 							'required',
 							'unique:artist_master',
 							'max:255',
-							'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'
+							'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]+/'
 					],
 					'category' => [
 							'required',
-							'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'
+							'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]+/'
 					],
 					'area' => [
 							'required',
-							'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'
+							'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]+/'
 					],
 					'forFansOf1' => [
 							'required',
-							'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'
+							'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]+/'
 					]
 			] );
 		} catch ( Exception $e ) {
-			$e->getMessage ();
+			Log::error($cd->EXE_ERR);
 			throw new Exception ();
 		}
 
@@ -66,11 +78,13 @@ class ArtistRepository implements ArtistRepositoryInterface {
 		try {
 			DB::table ( 'artist_master' )->insertGetId ( $artistData );
 		} catch ( Exception $e ) {
-			$e->getMessage ();
+			Log::error($cd->EXE_ERR);
 			throw new Exception ();
 		}
 	}
 	public function getArtistByName(Request $request) {
+		// CodeDefine
+		$cd = new CodeDefine();
 		$name = $request->input ( 'name' );
 		$request->validate ( [
 				'name' => [
@@ -96,6 +110,8 @@ class ArtistRepository implements ArtistRepositoryInterface {
 	}
 
 	public function showArtistDetail($name) {
+		// CodeDefine
+		$cd = new CodeDefine();
 		try {
 			$artistName = DB::table ( 'artist_base.artist_master' )->where ( 'name', 'like', "%{$name}%" )->first ();
 			$artistTitles = DB::table ( 'artist_base.artist_master' )->select ( '*' )->leftjoin ( 'artist_base.artist_title', 'artist_master.artist_id', '=', 'artist_title.artist_id' )->where ( 'artist_title.artist_id', '=', "{$artistName->artist_id}" )->get ();
@@ -108,11 +124,14 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			throw new Exception ();
 		}
 	}
+
 	public function insertTitle(Request $request) {
 		$artistId = $request->input ( 'artistId' );
 		$name = $request->input ( 'name' );
 		$title = $request->input ( 'title' );
 		$releasedYear = $request->input ( 'releasedYear' );
+		// CodeDefine
+		$cd = new CodeDefine();
 
 		$request->validate ( [
 				'artistId' => [
@@ -121,15 +140,15 @@ class ArtistRepository implements ArtistRepositoryInterface {
 				'title' => [
 						'required',
 						'unique:artist_title',
-						'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'
+						'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]+/'
 				],
 				'name' => [
 						'required',
-						'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'
+						'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]+/'
 				],
 				'releasedYear' => [
 						'required',
-						'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]{1,100}+$/u'
+						'regex:/[0-9a-zA-Zぁ-んァ-ヶー一-龠!-@]+/'
 				]
 		] );
 
@@ -145,7 +164,7 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			];
 			return $artistName;
 		} catch ( Exception $e ) {
-			$e->getMessage ();
+			Log::error($cd->EXE_ERR);
 			throw new Exception ();
 		}
 	}

@@ -18,7 +18,7 @@
                           <label for="title" class="col-md-4"></label>
 
                           <div class="col-md-6">
-                              <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Start Here" required>
+                              <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="アーティスト名を検索" required>
 
                               @if ($errors->has('name'))
                                   <span class="help-block">
@@ -28,9 +28,10 @@
                           </div>
                       </div>
                       <input type = "hidden" name="_token" value="{{csrf_token()}}">
+                      <!-- 検索ボタン -->
                       <div class="col-md-6 col-md-offset-4">
                           <button type="submit" class="btn btn-primary">
-                              Search Band's  By Name
+                              Search
                           </button>
                       </div>
                     </form>

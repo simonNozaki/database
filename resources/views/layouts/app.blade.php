@@ -8,20 +8,21 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>BandsDatabase</title>
+    <title>Artist Database</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app2.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/materialize.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top" style="background-color:#a5c9c1;">
+        <nav class="navbar navbar-default navbar-static-top" style="background-color:#f4511e;">
             <div class="container">
                 <div class="navbar-header">
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        BandsDatabase
+                        Artist Database
                     </a>
                 </div>
 
@@ -73,5 +74,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/materialize.min.js') }}"></script>
 </body>
 </html>

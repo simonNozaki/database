@@ -1,5 +1,14 @@
+/**
+ 追加的なスタイルの設定。
+ */
+
+// アプリ全体のスタイル
 body{
-  background-color: #262626;
+  background-color: #fafafa;
+}
+
+a{
+  text-decoration: none;
 }
 
 .btn-link a{
