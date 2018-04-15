@@ -34,6 +34,11 @@
                   @guest
                   <p>アルバムの登録には、ログインが必要です。</p>
                   @else
+                    <form class="" action="/database/delete/{{{ $artistName->artist_id }}}" method="post">
+                        <div class="">
+                          <button type="submit" class="btn btn-primary">このアーティストを削除する</button>
+                        </div>
+                    </form>
                     <a href = "/database/{{{ $artistName->name }}}/registerTitle"
                         class="btn btn-primary btn-lg btn-block">
                         タイトルを登録する

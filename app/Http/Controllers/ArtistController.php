@@ -63,6 +63,11 @@ class ArtistController extends Controller{
     return view('Artist.title', compact('artistName'));
   }
 
+  public function deleteArtist($artistId){
+    $this->artistRepository->deleteArtist($artistId);
+    return redirect()->to("database/index");
+  }
+
 }
 
 ?>

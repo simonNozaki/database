@@ -34,6 +34,8 @@ Route::prefix('database')->group(function(){
   // Artistのアルバムを登録する
   Route::post('storeTitles', 'ArtistController@storeTitles');
   Route::get('{name}/registerTitle', 'ArtistController@titleForm');
+  // Artistを削除する
+  Route::post('delete/{artist_id}','ArtistController@deleteArtist');
 });
 
 Auth::routes();

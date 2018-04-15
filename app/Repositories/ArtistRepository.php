@@ -167,6 +167,17 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			echo $e->getMessage();
 		}
 	}
+
+  public function deleteArtist($artistId){
+    $cd = new CodeDefine();
+		try{
+			DB::table('artist_base.artist_master')->where('artist_id','=',"%{$artistId}%")->delete();
+		}catch(Exception $e){
+			Log::error($cd->EXE_ERR);
+			echo $e->getMessage();
+		}
+	}
+
 }
 
 ?>

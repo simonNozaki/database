@@ -32,6 +32,12 @@ interface ArtistRepositoryInterface{
    * @param Request $request
    */
   public function insertTitle(Request $request);
+
+  /**
+   * アーティストのレコードを削除する
+   * @param $artistId
+   */
+  public function deleteArtist($artistId);
 }
 
 

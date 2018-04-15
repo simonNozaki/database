@@ -94,8 +94,11 @@ class ArtistControllerTest extends DuskTestCase{
         $this->browse(function ($browser){
           $browser->loginAs(User::find(1))
                   ->visit('database/new')
-                  ->type('name','FABLED NUMBER')->type('category','ROCK ')->type('area','大阪')->type('forFansOf1','NOISE MAKER')
-                  ->assertPathIs('database/index');
+                  ->type('name','FABLED NUMBER')->type('category','ROCK ')
+                  ->type('area','大阪')->type('forFansOf1','NOISE MAKER')
+                  ->press('登録する')
+                  ->assertPathIs('database/index')
+                  ->assertSee('NOISE MAKER');
         });
       }catch(Exception $e){
         $cd = new CodeDefine();
@@ -110,10 +113,46 @@ class ArtistControllerTest extends DuskTestCase{
       try{
         $this->browse(function ($browser){
           $browser->loginAs(User::find(1))
-                  ->visit('home')
+                  ->visit('/home')
                   ->type('name','aaa')
-                  ->assertPathIs('database/search')
+                  ->press('SEARCH')
+                  ->assertPathIs('/database/search')
                   ->assertSee('検索結果はありません。');
+        });
+      }catch(Exception $e){
+        $cd = new CodeDefine();
+        Log::error($cd->EXE_ERR);
+        throw new Exception();
+      }
+    }
+
+    // 正常稼働チェック
+    /** @test */
+    public function search_Case2(){
+      try{
+        $this->browse(function ($browser){
+          $browser->loginAs(User::find(1))
+                  ->visit('home')
+                  ->type('name','three')
+                  ->press('SEARCH')
+                  ->assertPathIs('database/search')
+                  ->assertSee('THREE LIGHTS DOWN KINGS');
+        });
+      }catch(Exception $e){
+        $cd = new CodeDefine();
+        Log::error($cd->EXE_ERR);
+        throw new Exception();
+      }
+    }
+
+    /** @test */
+    public function deleteArtist_Case1(){
+      try{
+        $this->browse(function ($browser){
+          $browser->loginAs(User::find(1))
+                  ->visit('/database/show/FABLED%20NUMBER')
+                  ->clickLink('このアーティストを削除する')
+                  ->assertPathIs('database/index');
         });
       }catch(Exception $e){
         $cd = new CodeDefine();

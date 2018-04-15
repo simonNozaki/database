@@ -8,7 +8,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading" style="text-align:center;">
+                    <h3>検索結果</h3>
+                </div>
                 @guest
                 <div class="panel-body">
                   <p>ログインが必要です</p>
@@ -21,11 +23,15 @@
                         </div>
                     @endif
 
-                    @foreach($records as $record)
-                      <p><a href= "/database/show/{{{ $record->name }}}" >{{ $record->name }}</a></p>
-                      <p> {{ $record->area }} </p>
-                    @endforeach
-                    <a href = "{{action('HomeController@index')}}" class = "btn-link">Back to top</a>
+                    @if(count($records) > 0)
+                      @foreach($records as $record)
+                        <p><a href= "/database/show/{{{ $record->name }}}" >{{ $record->name }}</a></p>
+                        <p> {{ $record->area }} </p>
+                      @endforeach
+                    @else
+                        <p>検索結果はありません。</p>
+                    @endif
+                    <a href = "{{action('HomeController@index')}}" class = "btn-link">トップに戻る。</a>
                 </div>
                 @endguest
             </div>
