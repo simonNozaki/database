@@ -8,6 +8,7 @@ use App\Repositories\ArtistRepository;
 use App\Constants\CodeDefine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class ArtistRepositoryTest extends TestCase{
 
@@ -55,18 +56,22 @@ class ArtistRepositoryTest extends TestCase{
 
   /** @test */
   public function getArtistByName_Case1(){
-  	$artistRepository = new ArtistRepository();
-  	$req = new Request();
-  	$name = $req->input ('name');
-  	echo "Input: ".$name;
-  	try{
-  		$result = $artistRepository->getArtistbyName($req);
-  		echo var_dump($result);
-  		$this->assertEquals(count($result), 2);
-  	}catch (Exception $e){
-  		Log::error($cd->EXE_ERR);
-  		throw new Exception();
-  	}
+    $name = "aaa";
+    try {
+			$records = DB::table ( 'artist_master' )->where ( 'name', 'like', "%{$name}%" )->get ();
+			if (count ( $records ) == 0) {
+				$records[0]->name = "検索結果はありません。";
+			}
+			$artistRecord = [
+					'name' => $name,
+					'records' => $records
+			];
+		} catch ( Exception $e ) {
+			echo $e->getMessage();
+		}
+    // var_dump($artistRecord);
+    $this->assertEquals($records[0]->name, "検索結果はありません。");
+
   }
 }
 ?>

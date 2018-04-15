@@ -93,7 +93,7 @@
                         <div class="form-group">
                             <div class="col col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register Band
+                                    登録する
                                 </button>
                             </div>
                         </div>

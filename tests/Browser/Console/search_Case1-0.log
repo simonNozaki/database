@@ -1,0 +1,8 @@
+[
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/127.0.0.1:8000\/js\/app.js 12248:10 Uncaught Error: [vue-router] invalid mode: [object History]",
+        "source": "javascript",
+        "timestamp": 1523760158729
+    }
+]

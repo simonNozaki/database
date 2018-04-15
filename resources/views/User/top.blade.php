@@ -14,7 +14,10 @@
                           <li class="list-group-item">{{ $record->name }}</li>
                       @endforeach
                   </ul>
-                  <a href = "{{action('HomeController@index')}}" class = "btn-link">Back to top</a>
+                  <a href = "{{action('HomeController@index')}}"
+                    class="btn btn-primary btn-lg btn-block">
+                    トップに戻る
+                  </a>
                 </div>
             </div>
         </div>

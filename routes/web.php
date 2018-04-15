@@ -38,11 +38,11 @@ Route::prefix('database')->group(function(){
 
 Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
+
 /**
 *  ユーザ系リクエストのルーティング
 */
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::prefix('user')->group(function(){
   // ユーザトップページ
   Route::get('{id}', 'UserController@top');

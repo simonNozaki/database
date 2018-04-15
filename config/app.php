@@ -164,13 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        /*
-         * Package Service Providers...
-         */
-
-        /*
-         * Application Service Providers...
-         */
+        /* Application Service Providers... */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -178,9 +172,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         //ソーシャルログイン使用
         Laravel\Socialite\SocialiteServiceProvider::class,
-        // Compoer開発ツール
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, 
-
     ],
 
     /*

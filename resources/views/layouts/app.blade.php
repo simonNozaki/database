@@ -20,7 +20,6 @@
         <nav class="navbar navbar-default navbar-static-top" style="background-color:#f4511e;">
             <div class="container">
                 <div class="navbar-header">
-                    <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
                         Artist Database
                     </a>
@@ -39,11 +38,11 @@
                             <li><a href="{{ route('login') }}">Sign in</a></li>
                             <li><a href="{{ route('register') }}">Sign up</a></li>
                         @else
-                            <li> <a href="{{ action('ArtistController@new') }}">Register Bands</a> </li>
-                            <li> <a href="{{ action('ArtistController@index') }}">Bands</a> </li>
-                            <aboutLayouts></aboutLayouts>
+                            <li> <a href="{{ action('ArtistController@new') }}">登録する</a> </li>
+                            <li> <a href="{{ action('ArtistController@index') }}">アーティスト一覧</a> </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                    role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 

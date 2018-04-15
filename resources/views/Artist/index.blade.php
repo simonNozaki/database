@@ -35,6 +35,10 @@
 
                     @endguest
                 </div>
+                <a href = "{{action('HomeController@index')}}"
+                  class="btn btn-primary btn-lg btn-block">
+                  トップに戻る
+                </a>
             </div>
         </div>
     </div>

@@ -17,9 +17,8 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			return $records;
 		}catch(Exception $e){
 			Log::error($cd->EXE_ERR);
-			throw new Exception ();
+			echo $e->getMessage();
 		}
-
 	}
 
 	// バンド情報を登録するメソッド
@@ -62,7 +61,7 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			] );
 		} catch ( Exception $e ) {
 			Log::error($cd->EXE_ERR);
-			throw new Exception ();
+			echo $e->getMessage();
 		}
 
 		$artistData = [
@@ -79,7 +78,7 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			DB::table ( 'artist_master' )->insertGetId ( $artistData );
 		} catch ( Exception $e ) {
 			Log::error($cd->EXE_ERR);
-			throw new Exception ();
+			echo $e->getMessage();
 		}
 	}
 	public function getArtistByName(Request $request) {
@@ -97,7 +96,7 @@ class ArtistRepository implements ArtistRepositoryInterface {
 		try {
 			$records = DB::table ( 'artist_master' )->where ( 'name', 'like', "%{$name}%" )->get ();
 			if (count ( $records ) == 0) {
-				$records[0]->name = "Nothing is searched";
+				$records[0]->name = "検索結果はありません。";
 			}
 			$artistRecord = [
 					'name' => $name,
@@ -105,7 +104,7 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			];
 			return $artistRecord;
 		} catch ( Exception $e ) {
-			throw new Exception ();
+			echo $e->getMessage();
 		}
 	}
 
@@ -121,7 +120,7 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			];
 			return $artistData;
 		} catch ( Exception $e ) {
-			throw new Exception ();
+			echo $e->getMessage();
 		}
 	}
 
@@ -165,7 +164,7 @@ class ArtistRepository implements ArtistRepositoryInterface {
 			return $artistName;
 		} catch ( Exception $e ) {
 			Log::error($cd->EXE_ERR);
-			throw new Exception ();
+			echo $e->getMessage();
 		}
 	}
 }

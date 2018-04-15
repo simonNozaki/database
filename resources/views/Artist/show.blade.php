@@ -34,20 +34,14 @@
                   @guest
                   <p>アルバムの登録には、ログインが必要です。</p>
                   @else
-                  <ul>
-                      <li>
-                          <a href = "/database/{{{ $artistName->name }}}/registerTitle"
-                            class="btn btn-primary btn-lg btn-block">
-                              タイトルを登録する
-                            </a>
-                      </li>
-                      @endguest
-                      <li>
-                          <a href = "/database/index" class="btn btn-primary btn-lg btn-block">
-                            アーティスト一覧に戻る
-                          </a>
-                      </li>    
-                  <ul>
+                    <a href = "/database/{{{ $artistName->name }}}/registerTitle"
+                        class="btn btn-primary btn-lg btn-block">
+                        タイトルを登録する
+                    </a>
+                    @endguest
+                    <a href = "/database/index" class="btn btn-primary btn-lg btn-block">
+                      アーティスト一覧に戻る
+                    </a>
                 </div>
             </div>
         </div>
