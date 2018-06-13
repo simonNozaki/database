@@ -71,7 +71,6 @@ class ArtistRepositoryTest extends TestCase{
 		}
     // var_dump($artistRecord);
     $this->assertEquals($records[0]->name, "検索結果はありません。");
-
   }
 }
 ?>

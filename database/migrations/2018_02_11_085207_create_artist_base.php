@@ -13,23 +13,8 @@ class CreateArtistBase extends Migration
      */
     public function up()
     {
-      Schema::connection('artist_base')->create('users', function (Blueprint $table) {
-          $table->increments('id');
-          $table->string('name');
-          $table->string('email')->unique();
-          $table->string('password');
-          $table->rememberToken();
-          $table->timestamps();
-      });
-
-      Schema::connection('artist_base')->create('password_resets', function (Blueprint $table) {
-          $table->string('email')->index();
-          $table->string('token');
-          $table->timestamp('created_at')->nullable();
-      });
-
-      Schema::connection('artist_base')->create('artist_master', function (Blueprint $table) {
-          $table->increments('artist_id')->primary();
+      Schema::create('artist_master', function (Blueprint $table) {
+          $table->increments('artist_id');
           $table->string('name');
           $table->string('category');
           $table->string('area');
@@ -39,13 +24,12 @@ class CreateArtistBase extends Migration
           $table->integer('user_id');
       });
 
-      Schema::connection('artist_base')->create('artist_title', function(Blueprint $table){
-          $table->integer('artist_id');
+      Schema::create('artist_title', function(Blueprint $table){
+          $table->increments('artist_id');
           $table->string('name')->nullable();
           $table->string('title');
           $table->string('released_year')->nullable();
       });
-
     }
 
     /**
@@ -55,6 +39,7 @@ class CreateArtistBase extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('artist_master');
+        Schema::dropIfExists('artist_title');
     }
 }

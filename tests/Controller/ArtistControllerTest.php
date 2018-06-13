@@ -160,4 +160,23 @@ class ArtistControllerTest extends DuskTestCase{
         throw new Exception();
       }
     }
+
+    // 空の文字列を処理できないことを確認する
+    /** @test */
+    public function insertTitle_Case1(){
+      try{
+        $this->browse(function ($browser){
+          $browser->loginAs(User::find(1))
+                  ->visit('database/THREE%20LIGHTS%20DOWN%20KINGS/registerTitle')
+                  ->type('title','')
+                  ->type('releasedYear','')
+                  ->press('登録する')
+                  ->assertPathIs('database/show/FABLED%20NUMBER/registerTitle');
+        });
+      }catch(Exception $e){
+        $cd = new CodeDefine();
+        Log::error($cd->EXE_ERR);
+        throw new Exception();
+      }
+    }
 }
